@@ -8,9 +8,9 @@ static LGFX lcd; // declare display variable
 #include <lvgl.h>
 
 /*** Function declaration ***/
-void display_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p);
-void touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data);
-void DisplayInit();
+static void display_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p);
+static void touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data);
+static void DisplayInit();
 
 
 /*** Setup screen for LVGL ***/
@@ -22,7 +22,7 @@ static lv_color_t buf[screenWidth * 10];
 static lv_disp_drv_t disp_drv;
 static lv_indev_drv_t indev_drv;
 
-void DisplayInit()
+static void DisplayInit()
 {
     lcd.init(); // Initialize LovyanGFX
     lv_init();  // Initialize lvgl
@@ -52,7 +52,7 @@ void DisplayInit()
 }
 
 /*** Display callback to flush the buffer to screen ***/
-  void display_flush(lv_disp_drv_t * disp, const lv_area_t *area, lv_color_t *color_p)
+  static void display_flush(lv_disp_drv_t * disp, const lv_area_t *area, lv_color_t *color_p)
   {
     uint32_t w = (area->x2 - area->x1 + 1);
     uint32_t h = (area->y2 - area->y1 + 1);
@@ -68,7 +68,7 @@ void DisplayInit()
   }
 
   /*** Touchpad callback to read the touchpad ***/
-  void touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
+  static void touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data)
   {
     uint16_t touchX, touchY;
     bool touched = lcd.getTouch(&touchX, &touchY);
